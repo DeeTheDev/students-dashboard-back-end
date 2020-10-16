@@ -32,6 +32,8 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'jquery-rails'
 gem 'bootstrap'
 gem 'font-awesome-rails', '~>4.x'
+# Rack CORS for handling Cross-Origin Resource Sharing (making CORS Ajax possible)
+gem 'rack-cors', :require => 'rack/cors'
 
 
 group :development, :test do
@@ -46,6 +48,10 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  #Environment variable handling with dotenv
+  gem 'dotenv-rails'
+  #deethedev - avoid  polling for changes
+  gem 'wdm', '>= 0.1.0'
 end
 
 group :test do
