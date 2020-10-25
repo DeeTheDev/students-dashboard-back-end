@@ -26,7 +26,7 @@ default: &default
 
 development:
   <<: *default
-  database: students_dashboard_back_end_development
+  database: students_dashboard_back_end_DEV
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
