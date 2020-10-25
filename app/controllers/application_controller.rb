@@ -1,4 +1,4 @@
-class ApplicationController < ActionController::API
+class ApplicationController < ActionController::Base
     before_action :require_login
 
     # include ActionController::RequestForgeryProtection

@@ -1,6 +1,7 @@
 class Api::V1::UsersController < ApplicationController
-  skip_before_action :require_login
-  # protect_from_forgery except: :create
+  # protect_from_forgery
+  skip_before_action :verify_authenticity_token
+  # skip_before_action :require_login
   # def login
   #   user = User.find_by(email: params[:email])
 
@@ -18,7 +19,7 @@ class Api::V1::UsersController < ApplicationController
   # end
   def index
     users = User.all
-    render :json => users
+    # render :json => users
   end
 
   def show
