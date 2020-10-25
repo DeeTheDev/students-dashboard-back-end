@@ -20,8 +20,8 @@ gem 'bcrypt', '~> 3.1.7'
 gem 'jwt'
 
 # React rails with webpacker
-# gem 'webpacker'
-# gem 'react-rails'
+gem 'webpacker'
+gem 'react-rails'
 
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
