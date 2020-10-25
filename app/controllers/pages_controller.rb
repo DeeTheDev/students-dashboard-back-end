@@ -1,4 +1,4 @@
-class PagesController < ApplicationController
+class PagesController < ActionController::Base
     skip_before_action :require_login
     def index
         hello = "Hello"
