@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { Route, Switch } from 'react-router-dom'
-import Users from '../components/Users'
-import User from '../components/User'
-import Authorized from '../components/Authorized'
+import Users from './Users'
+import User from './User'
+import Authorized from './Authorized'
+import Login from './Login'
 
 const App = () => {
     const [loggedStatus, setLoggedStatus] = useState("Not_logged_In")
@@ -10,12 +11,12 @@ const App = () => {
 
     return(
         <Switch>
-            <Route exact path="/" component={Users}/>
+            <Route exact path="/" component={Users}  />
+            <Route exact path="/login" component={Login}  />
             <Route exact path="/user/:id" component={User}/>
             <Route exact path="/Authorized"
                 render={props =>(
-                        <Authorized
-                            {...props}
+                        <Authorized {...props}
                             loggedStatus = {loggedStatus}
                         />
             )}

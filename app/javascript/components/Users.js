@@ -4,6 +4,8 @@ import axios from 'axios'
 const Users = (props) => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
+    const [authorized, setAuthorized] = useState({})
+
     const handleEmailChange = (evt) => {
         setEmail(evt.target.value)
     }
@@ -41,7 +43,7 @@ const Users = (props) => {
           }
         })
         .then(resp => resp.json())
-        .then(data => console.log(data))
+        .then(data => setAuthorized(data))
       }
 
     const formDivStyle = {
@@ -64,8 +66,9 @@ const Users = (props) => {
                     </div>
                     
                     <button className="ui button" type="submit">Submit</button>
-                    <button onClick={handleAuthClick} className="ui button">Access Authorized Route</button>
                 </form>
+                <button onClick={handleAuthClick} className="ui button">Access Authorized Route</button>
+                <div>{authorized == {} ? "empty object" : `hello ${authorized.username}`}</div>
             </div>
         </div>
     )

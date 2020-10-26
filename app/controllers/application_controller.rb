@@ -56,7 +56,6 @@ class ApplicationController < ActionController::Base
         if !decoded_hash.nil? 
             user_id = decoded_hash[0]['user_id']
             @user = User.find_by(id: user_id)
-            return @user
         else
             nil 
         end

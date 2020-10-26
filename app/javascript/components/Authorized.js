@@ -1,33 +1,37 @@
 import React, { useState, useEffect} from 'react'
 import axios from 'axios'
-import jwtDecode from 'jwt-decode'
-
 const Authorized  = (props) => {
     const [ user, setUser ] = useState({})
+    const token = localStorage.getItem("token");
     useEffect(() => {
-        const token = localStorage.getItem("token");
-        // if(token) {
-        //     const result = jwtDecode(token);
-        //     console.log(result)
-        //     setUser(result)
-        // }
         if(token){
-          axios.get(`http://localhost:3000/auto_login`, {
-            headers: {
-              Authorization: `Bearer ${token}`
-            }
-          })
-          .then(response => console.log(response))
-        //   .then(data => {
-        //       console.log("data response: ", data);
-        //     // setUser(data)
-        //   })
-          .catch(err => console.log("Error authenticating page: " + err))
+            axios.get(`http://localhost:3000/api/v1/auto_login`, {
+                headers: {
+                Authorization: `Bearer ${token}`
+                }
+            })
+            .then(response => console.log(response))
+            .then(data=> console.log("data: ", data))
+            .then(data => {
+                console.log("data response: ", data);
+                // setUser(data)
+            })
+            // fetch(`http://localhost:3000/api/v1/auto_login`, {
+            //     headers: {
+            //         "Authorization": `Bearer ${token}`
+            //     }
+            // })
+            // .then(resp => resp.json())
+            // .then(data => {
+            //     console.log(data)
+            //     setUser(data);
+            // })
+            // .catch(err => console.log("Error authenticating page: " + err))
         }
     }, [])
     const showUser = () => {
         return(
-            user != {} ? <div>User: {user.username}</div> : <div>No user logged</div>
+            user == {} ? <div>No user logged</div> :<div>User: {user.username}</div> 
         )
     }
     return(

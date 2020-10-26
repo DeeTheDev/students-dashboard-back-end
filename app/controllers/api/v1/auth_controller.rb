@@ -12,7 +12,7 @@ class Api::V1::AuthController< ApplicationController
                 # secret_key = Rails.application.secrets.secret_key[0]
                 # token = JWT.encode(user, secret_key)
                 payload = { user_id: user.id }
-                payload[:exp] = (20).seconds.from_now.to_i
+                payload[:exp] = (30).seconds.from_now.to_i
                 puts payload[:exp]
                 token = encode_token(payload)
                 render json: {user:user,jwt:token, success: "Welcome back, #{user.username}"}
@@ -24,6 +24,7 @@ class Api::V1::AuthController< ApplicationController
 
     def auto_login
         if session_user
+            puts `session user: #{session_user}`
             render json: session_user
         else
             render json: {errors: "No User Logged In"}
