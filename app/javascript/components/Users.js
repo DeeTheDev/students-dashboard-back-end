@@ -4,22 +4,6 @@ import axios from 'axios'
 const Users = (props) => {
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
-
-    useEffect(() => {
-        const token = localStorage.getItem("token")
-        if(token){
-          fetch(`http://localhost:3000/auto_login`, {
-            headers: {
-              Authorization: `Bearer ${token}`
-            }
-          })
-          .then(resp => resp.json())
-          .then(data => {
-            setUser(data)
-          })
-          .then(() => props.history.push("/authorized"))
-        }
-      }, [])
     const handleEmailChange = (evt) => {
         setEmail(evt.target.value)
     }
