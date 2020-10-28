@@ -5,15 +5,23 @@ const loginPath = '/api/v1/login';
 let AuthAPI = {
   login(email, password) {
     return new Promise(function(resolve, reject) {
-      axios.post(loginPath, {email: email, password: password})
+      axios({
+        method: 'post',
+        url: loginPath,
+        credentials: 'include',
+        data: {
+          email: email,
+          password: password
+        }
+      })
         .then((resp) => {
             console.log(resp)
-            resolve(resp)
+            resolve(resp.data)
         })
         .catch((errResp) => {
             console.log("errResponse: ", errResp)
             reject(errResp)
-        });
+        })
     });
   }
 };

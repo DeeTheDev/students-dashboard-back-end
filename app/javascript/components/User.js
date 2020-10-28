@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import SessionStore from './sessions/session_store.js';
+import SessionStore from './sessions/AuthStore.js';
 import AuthActions from './sessions/auth_actions.js';
 
 const User = (props) => {
@@ -29,7 +29,7 @@ const User = (props) => {
           } else {
             return (
               <div className='UserControls'>
-                <a href='#/login'>Login</a>
+                <a href='/login'>Login</a>
               </div>
             );
           }

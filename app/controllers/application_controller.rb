@@ -1,4 +1,5 @@
 class ApplicationController < ActionController::Base
+    include ::ActionController::Cookies
     before_action :require_login
 
     # include ActionController::RequestForgeryProtection
@@ -54,18 +55,23 @@ class ApplicationController < ActionController::Base
     def session_user
         decoded_hash = decoded_token
         if !decoded_hash.nil? 
+            jwtlol = cookies.signed[:jwt]
             user_id = decoded_hash[0]['user_id']
-            @user = User.find_by(id: user_id)
+            user = User.find_by(id: user_id)
         else
             nil 
         end
     end
-
+    def authenticate_user
+        jwt = cookies.signed[:jwt]
+        render json: {message: 'Please Login - from authenticate_user'}, status: :unauthorized unless jwt
+        # decode_jwt(jwt)
+    end
     def logged_in?
         !!session_user
     end
 
     def require_login
-     render json: {message: 'Please Login'}, status: :unauthorized unless logged_in?
+        render json: {message: 'Please Login'}, status: :unauthorized unless logged_in?
     end
 end

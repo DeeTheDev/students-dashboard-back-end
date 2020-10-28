@@ -1,5 +1,5 @@
 class Api::V1::AuthController< ApplicationController
-    skip_before_action :require_login, only: [:login, :auto_login]
+    skip_before_action :require_login, only: [:login, :auto_login, :destroy]
     skip_forgery_protection
 
     def login
@@ -9,13 +9,16 @@ class Api::V1::AuthController< ApplicationController
             render status: :unauthorized
         else
             if user && user.authenticate(params[:password])
-                # secret_key = Rails.application.secrets.secret_key[0]
-                # token = JWT.encode(user, secret_key)
                 payload = { user_id: user.id }
-                payload[:exp] = (30).seconds.from_now.to_i
-                puts payload[:exp]
+                payload[:exp] = 30.seconds.from_now.to_i
+                # JWT token sent to client to be stored in client memory (state?)
                 token = encode_token(payload)
-                render json: {user:user,jwt:token, success: "Welcome back, #{user.username}"}
+                # HTTP-only cookie stored with refresh_token
+                cookies.signed[:jwt] = {value:  token, httponly: true, expires: 1.minutes.from_now}
+                # render json: {user:user, jwt:token, success: "Welcome back, #{user.username}"}
+                
+                # return json format to client jwt_token and jwt_expire
+                render json: {jwt:token, jwt_expire:payload[:exp],  success: "Welcome back, #{user.username}"}
             else
                 render status: :unauthorized
             end
@@ -29,5 +32,9 @@ class Api::V1::AuthController< ApplicationController
         else
             render json: {errors: "No User Logged In"}
         end
+    end
+
+    def destroy
+        cookies.delete :jwt
     end
 end
