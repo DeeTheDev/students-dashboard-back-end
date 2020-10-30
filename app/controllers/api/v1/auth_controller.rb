@@ -18,7 +18,7 @@ class Api::V1::AuthController< ApplicationController
                 # render json: {user:user, jwt:token, success: "Welcome back, #{user.username}"}
                 
                 # return json format to client jwt_token and jwt_expire
-                render json: {jwt:token, jwt_expire:payload[:exp],  success: "Welcome back, #{user.username}"}
+                render json: {jwt_expire:payload[:exp],  success: "Welcome back, #{user.username}"}
             else
                 render status: :unauthorized
             end

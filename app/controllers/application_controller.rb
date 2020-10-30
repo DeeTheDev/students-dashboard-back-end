@@ -55,7 +55,7 @@ class ApplicationController < ActionController::Base
     def session_user
         decoded_hash = decoded_token
         if !decoded_hash.nil? 
-            jwtlol = cookies.signed[:jwt]
+            cookie_jwt= cookies.signed[:jwt]
             user_id = decoded_hash[0]['user_id']
             user = User.find_by(id: user_id)
         else

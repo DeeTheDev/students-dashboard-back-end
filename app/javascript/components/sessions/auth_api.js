@@ -10,8 +10,8 @@ let AuthAPI = {
         url: loginPath,
         credentials: 'include',
         data: {
-          email: email,
-          password: password
+          email,
+          password
         }
       })
         .then((resp) => {

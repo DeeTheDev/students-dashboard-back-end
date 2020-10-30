@@ -5,8 +5,8 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       post "/login", to: "auth#login"   
-      get "/auto_login", to: "auth#auto_login"   
-      get "/user_is_authed", to: "auth#user_is_authed"
+      # get "/auto_login", to: "auth#auto_login"   
+      # get "/user_is_authed", to: "auth#user_is_authed"
       delete '/logout', to: "auth#destroy"
       resources :users,  param: :id
     end
