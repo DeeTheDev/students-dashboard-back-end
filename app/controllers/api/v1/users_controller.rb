@@ -1,23 +1,8 @@
 class Api::V1::UsersController < ApplicationController
   # protect_from_forgery
   # skip_before_action :verify_authenticity_token
-  before_action :authenticate_user
-  skip_before_action :require_login
-  # def login
-  #   user = User.find_by(email: params[:email])
+  before_action :require_login
 
-  #   if !user
-  #     render status: :unauthorized
-  #   else
-  #     if user && user.authenticate(params[:password])
-  #       secret_key = Rails.application.secrets.secret_key[0]
-  #       token = JWT.encode(user, secret_key)
-  #       render json: {user:user,jwt:token, success: "Welcome back #{user.username}"}
-  #     else
-  #       render status: :unauthorized
-  #     end
-  #   end
-  # end
   def index
     users = User.all
     render :json => users

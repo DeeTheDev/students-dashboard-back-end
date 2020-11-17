@@ -14,7 +14,7 @@ class Api::V1::AuthController< ApplicationController
                 # JWT token sent to client to be stored in client memory (state?)
                 token = encode_token(payload)
                 # HTTP-only cookie stored with refresh_token
-                cookies.signed[:jwt] = {value:  token, httponly: true, expires: 1.minutes.from_now}
+                cookies.signed[:jwt] = {value:  token, httponly: true, secure: true, expires: 1.minutes.from_now}
                 # render json: {user:user, jwt:token, success: "Welcome back, #{user.username}"}
                 
                 # return json format to client jwt_token and jwt_expire
@@ -30,7 +30,7 @@ class Api::V1::AuthController< ApplicationController
             puts `session user: #{session_user}`
             render json: session_user
         else
-            render json: {errors: "No User Logged In"}
+            render json: {}
         end
     end
 
